@@ -19,6 +19,8 @@ class MorningHeroContent extends StatelessWidget {
       color: Colors.white,
     ),
     this.subtitleLineHeight = 1.1,
+    this.onNavTap,
+    this.onMoreSelected,
   });
 
   final String title;
@@ -27,13 +29,17 @@ class MorningHeroContent extends StatelessWidget {
   final EdgeInsets titlePadding;
   final TextStyle titleStyle;
   final double subtitleLineHeight;
+  // Handle top-right nav taps (Routines/Book/Stats/About). Provided by home.
+  final ValueChanged<String>? onNavTap;
+  // Handle selection from the More dropdown.
+  final ValueChanged<String>? onMoreSelected;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         // Top-right heading/menu items with fade hover effect
-        const HeadingS(),
+  HeadingS(onItemTap: onNavTap, onMoreSelected: onMoreSelected),
         // Title with fade-only hover (no slide, no color change, no letter-spacing change)
         HoverTitle(
           text: title,

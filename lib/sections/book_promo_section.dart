@@ -126,7 +126,12 @@ class BookPromoSection extends StatelessWidget {
                                   ),
                                   elevation: 0,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  final current = ModalRoute.of(context)?.settings.name;
+                                  if (current != '/book') {
+                                    Navigator.of(context).pushNamed('/book');
+                                  }
+                                },
                                 child: const Text('Buy the Book'),
                               ),
                               OutlinedButton(
@@ -143,7 +148,12 @@ class BookPromoSection extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  final current = ModalRoute.of(context)?.settings.name;
+                                  if (current != '/book') {
+                                    Navigator.of(context).pushNamed('/book');
+                                  }
+                                },
                                 child: const Text('Peek Inside'),
                               ),
                             ],
@@ -225,7 +235,12 @@ class BookPromoSection extends StatelessWidget {
                           ),
                           elevation: 0,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          final current = ModalRoute.of(context)?.settings.name;
+                          if (current != '/book') {
+                            Navigator.of(context).pushNamed('/book');
+                          }
+                        },
                         child: const Text('Buy the Book'),
                       ),
                       OutlinedButton(
@@ -242,7 +257,12 @@ class BookPromoSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          final current = ModalRoute.of(context)?.settings.name;
+                          if (current != '/book') {
+                            Navigator.of(context).pushNamed('/book');
+                          }
+                        },
                         child: const Text('Peek Inside'),
                       ),
                     ],

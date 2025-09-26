@@ -14,6 +14,7 @@ class HeadingS extends StatelessWidget {
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),
+    this.onItemTap,
     this.moreOptions = const <String>[
       'Q&A',
       'Quotes',
@@ -31,6 +32,8 @@ class HeadingS extends StatelessWidget {
   final EdgeInsets padding;
   final double spacing;
   final TextStyle textStyle;
+  // Called when a non-"More" nav item is tapped. Receives the label.
+  final ValueChanged<String>? onItemTap;
   final List<String> moreOptions;
   final ValueChanged<String>? onMoreSelected;
 
@@ -57,6 +60,7 @@ class HeadingS extends StatelessWidget {
             return _HoverFadeText(
               label: label,
               style: textStyle,
+              onTap: onItemTap != null ? () => onItemTap!(label) : null,
             );
           }).toList(),
         ),
@@ -69,10 +73,12 @@ class _HoverFadeText extends StatefulWidget {
   const _HoverFadeText({
     required this.label,
     required this.style,
+    this.onTap,
   });
 
   final String label;
   final TextStyle style;
+  final VoidCallback? onTap;
 
   @override
   State<_HoverFadeText> createState() => _HoverFadeTextState();
@@ -83,14 +89,19 @@ class _HoverFadeTextState extends State<_HoverFadeText> {
 
   @override
   Widget build(BuildContext context) {
+    final child = AnimatedOpacity(
+      duration: const Duration(milliseconds: 150),
+      opacity: _hovering ? 1.0 : 0.8,
+      child: Text(widget.label, style: widget.style),
+    );
+
     return MouseRegion(
+      cursor: widget.onTap != null ? SystemMouseCursors.click : MouseCursor.defer,
       onEnter: (_) => setState(() => _hovering = true),
       onExit: (_) => setState(() => _hovering = false),
-      child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 150),
-        opacity: _hovering ? 1.0 : 0.8,
-        child: Text(widget.label, style: widget.style),
-      ),
+      child: widget.onTap != null
+          ? GestureDetector(behavior: HitTestBehavior.opaque, onTap: widget.onTap, child: child)
+          : child,
     );
   }
 }
